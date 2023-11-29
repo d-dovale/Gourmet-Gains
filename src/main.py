@@ -10,7 +10,7 @@ def main_menu():
 
     while True:
 
-        print("1. Recommend food items using Dijkstra's algorithm. \n 2. Recommend food items using Floyd Marshall’s Algorithm \n 3. Search Carbohydrates \n 4. Search Protein \n 5. Search Fats \n 6. Exit")
+        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Marshall’s Algorithm \n3. Search Carbohydrates\n4. Search Protein \n5. Search Fats \n6. Exit")
         choice = int(input("Pick an Option: "))
 
         if(choice == 1):
