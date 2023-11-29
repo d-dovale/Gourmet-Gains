@@ -4,7 +4,7 @@ report = food.get_report()
 
 def main_menu():
     print("WELCOME TO GOURMET GAINS!\n")
-    search_food(input("Input a food item: \n"))
+    search_food(input("Input a food item: "))
 
 
     print("Main Menu:\n")
@@ -59,6 +59,7 @@ def search_food(food_item):
         print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
         print(f"  - Proteins: {selected_item['Data']['Protein']} g")
         print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
+        print("\n---------------------------------------------\n")
 
     else:
         print("Invalid selection.")
