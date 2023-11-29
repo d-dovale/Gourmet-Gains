@@ -42,7 +42,7 @@ def search_food(food_item):
     search_results = [item for item in food_report if all(term in item['Description'].lower() for term in search_terms)]
 
     if not search_results:
-        print("No items found.")
+        print("No items found. \n")
         return
 
     print("\nSelect the specific type of", food_item)
