@@ -4,8 +4,9 @@ report = food.get_report()
 
 def main_menu():
     print("WELCOME TO GOURMET GAINS!\n")
-    food_item = input("Input a food item: \n")
-    print("Food item nutrients: \n")
+    search_food(input("Input a food item: \n"))
+
+
     print("Main Menu:\n")
 
     while True:
@@ -35,10 +36,33 @@ def main_menu():
 
 def search_food(food_item):
     food_report = food.get_report()
-    search_results = [item for item in food_report if food_item.lower() in item['Category'].lower()]
-    return search_results
+    search_terms = food_item.lower().split()
+
+    # Update the search to check if all search terms are in the description
+    search_results = [item for item in food_report if all(term in item['Description'].lower() for term in search_terms)]
+
+    if not search_results:
+        print("No items found.")
+        return
+
+    print("\nSelect the specific type of", food_item)
+
+    for i, item in enumerate(search_results):
+        print(f"{i + 1}. {item['Description']}")
+
+    choice = int(input("\nEnter your choice (number): ")) - 1
+
+    if 0 <= choice < len(search_results):
+        selected_item = search_results[choice]
+        print("\nSelected Item:", selected_item['Description'])
+        print("Macronutrients:")
+        print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
+        print(f"  - Proteins: {selected_item['Data']['Protein']} g")
+        print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
+
+    else:
+        print("Invalid selection.")
 
 if __name__ == '__main__':
-    #search_food("Milk")
     main_menu()
 
