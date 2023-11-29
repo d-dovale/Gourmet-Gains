@@ -28,12 +28,9 @@ def main_menu():
 
 def search_food(food_item):
     food_report = food.get_report()
-    search_results = [item for item in food_report if food_item.lower() in item['Description'].lower()]
+    search_results = [item for item in food_report if food_item.lower() in item['Category'].lower()]
     return search_results
 
 if __name__ == '__main__':
-    print("hello world")
+    search_food("Milk")
 
-
-
- 
