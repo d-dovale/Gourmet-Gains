@@ -23,6 +23,7 @@ def main_menu():
             pass
 
         elif(choice == 5):
+            print("\nThank you for using Gourmet Gains!\n")  
             break
 
 def search_food(food_item):
@@ -35,4 +36,4 @@ if __name__ == '__main__':
 
 
 
-print("\nThank you for using Gourmet Gains!\n")   
+ 
