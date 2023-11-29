@@ -4,15 +4,15 @@ report = food.get_report()
 
 def main_menu():
     print("WELCOME TO GOURMET GAINS!\n")
-    search_food(input("Input a food item: \n"))
+    search_food(input("Input a food item: "))
 
 
     print("Main Menu:\n")
 
     while True:
 
-        print("1. Recommend food items using Dijkstra's algorithm. \n 2. Recommend food items using Floyd Marshall’s Algorithm \n 3. Search Carbohydrates \n 4. Search Protein \n 5. Search Fats \n 6. Exit")
-        choice = int(input("Pick an Option: "))
+        print("1. Recommend food items using Dijkstra's algorithm. \n2. Recommend food items using Floyd Marshall’s Algorithm \n3. Search Carbohydrates \n4. Search Protein \n5. Search Fats \n6. Exit")
+        choice = int(input("\nPick an Option: "))
 
         if(choice == 1):
             pass
@@ -59,6 +59,7 @@ def search_food(food_item):
         print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
         print(f"  - Proteins: {selected_item['Data']['Protein']} g")
         print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
+        print("\n---------------------------------------------\n")
 
     else:
         print("Invalid selection.")
