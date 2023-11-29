@@ -4,7 +4,7 @@ report = food.get_report()
 
 def main_menu():
     print("WELCOME TO GOURMET GAINS!\n")
-    print("Main Menu:")
+    print("Main Menu:\n")
 
     while True:
         print("\n1. Input Item\n2. Search Single Macronutrient\n3. Search All Macronutrients\n4. Search Single Nutrient\n5. Exit\n")
@@ -32,5 +32,6 @@ def search_food(food_item):
     return search_results
 
 if __name__ == '__main__':
-    search_food("Milk")
+    #search_food("Milk")
+    main_menu()
 
