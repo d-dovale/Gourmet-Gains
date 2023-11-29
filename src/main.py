@@ -6,13 +6,13 @@ print("WELCOME TO GOURMET GAINS!\n")
 print("Main Menu:")
 
 while True:
-    print("\n1. Input Item\n2. Search Single Macronutrient\n3. Search All Macronutrients\n4. Search Single Nutrient\n4. Exit\n")
-    choice = input("Pick an Option: ")
+    print("\n1. Input Item\n2. Search Single Macronutrient\n3. Search All Macronutrients\n4. Search Single Nutrient\n5. Exit\n")
+    choice = int(input("Pick an Option: "))
 
-    if(choice == 1) :
+    if(choice == 1):
         pass
 
-    elif(choice == 2) :
+    elif(choice == 2):
         pass
 
     elif(choice == 3):
