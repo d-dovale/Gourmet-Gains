@@ -35,4 +35,4 @@ if __name__ == '__main__':
 
 
 
-
+print("\nThank you for using Gourmet Gains!\n")   
