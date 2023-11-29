@@ -26,4 +26,4 @@ while True:
 
 
 
-
+print("\nThank you for using Gourmet Gains!")   
