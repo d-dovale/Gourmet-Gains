@@ -62,7 +62,7 @@ def search_food(food_item):
         print("\n---------------------------------------------\n")
 
     else:
-        print("Invalid selection.")
+        print("Invalid selection.\n")
 
 if __name__ == '__main__':
     main_menu()
