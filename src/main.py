@@ -36,10 +36,18 @@ def main_menu():
 
 def search_food(food_item):
     food_report = food.get_report()
-    search_terms = food_item.lower().split()
+    food_item_lower = food_item.lower()
 
-    # Update the search to check if all search terms are in the description
-    search_results = [item for item in food_report if all(term in item['Description'].lower() for term in search_terms)]
+    # Prioritize matches where the food item is at the beginning of the description
+    primary_matches = [item for item in food_report if item['Description'].lower().startswith(food_item_lower)]
+
+    # If no primary matches, find broader matches
+    if not primary_matches:
+        search_terms = food_item_lower.split()
+        secondary_matches = [item for item in food_report if all(term in item['Description'].lower() for term in search_terms)]
+        search_results = secondary_matches
+    else:
+        search_results = primary_matches
 
     if not search_results:
         print("No items found.")
