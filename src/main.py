@@ -33,6 +33,9 @@ def main_menu():
         elif(choice == 6):
             print("\nThank you for using Gourmet Gains!\n")  
             break
+        else:
+            print("Invalid option. Please try again.\n")
+            continue
 
 def search_food(food_item):
     food_report = food.get_report()
