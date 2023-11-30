@@ -64,6 +64,7 @@ def search_food(food_item):
 
     else:
         print("Invalid selection.\n")
+        choice = int(input("Enter your choice (number): ")) - 1
 
 if __name__ == '__main__':
     main_menu()
