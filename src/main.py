@@ -82,21 +82,19 @@ def search_food(food_item):
 
     for i, item in enumerate(search_results):
         print(f"{i + 1}. {item['Description']}")
-
-    choice = int(input("\nEnter your choice (number): ")) - 1
-
-    if 0 <= choice < len(search_results):
-        selected_item = search_results[choice]
-        print("\nSelected Item:", selected_item['Description'])
-        print("Macronutrients:")
-        print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
-        print(f"  - Proteins: {selected_item['Data']['Protein']} g")
-        print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
-        print("\n---------------------------------------------\n")
-
-    else:
-        print("Invalid selection.\n")
-        choice = int(input("Enter your choice (number): ")) - 1
+    while(True):
+        choice = int(input("\nEnter your choice (number): ")) - 1
+        if 0 <= choice < len(search_results):
+            selected_item = search_results[choice]
+            print("\nSelected Item:", selected_item['Description'])
+            print("Macronutrients:")
+            print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
+            print(f"  - Proteins: {selected_item['Data']['Protein']} g")
+            print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
+            print("\n---------------------------------------------\n")
+            break
+        else:
+            print("INVALID SELECTION.")
 
 if __name__ == '__main__':
     main_menu()
