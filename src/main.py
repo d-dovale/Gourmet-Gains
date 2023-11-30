@@ -37,6 +37,27 @@ def main_menu():
             print("Invalid option. Please try again.\n")
             continue
 
+def calculate_difference(item1, item2):
+    # Example: Euclidean distance based on macronutrients
+    carb_diff = item1['Data']['Carbohydrate'] - item2['Data']['Carbohydrate']
+    protein_diff = item1['Data']['Protein'] - item2['Data']['Protein']
+    fat_diff = item1['Data']['Fat']['Total Lipid'] - item2['Data']['Fat']['Total Lipid']
+
+    return math.sqrt(carb_diff**2 + protein_diff**2 + fat_diff**2)
+
+def build_graph():
+    food_report = food.get_report()
+    graph = {}
+
+    for i in range(len(food_report)):
+        for j in range(i+1, len(food_report)):
+            item1 = food_report[i]
+            item2 = food_report[j]
+            difference = calculate_difference(item1, item2)
+            graph[(item1['Description'], item2['Description'])] = difference
+
+    return graph
+
 def search_food(food_item):
     food_report = food.get_report()
     food_item_lower = food_item.lower()
