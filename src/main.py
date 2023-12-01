@@ -98,5 +98,5 @@ def search_food(food_item):
             print("INVALID SELECTION.")
 
 if __name__ == '__main__':
-    main_menu()
+    build_graph()
 
