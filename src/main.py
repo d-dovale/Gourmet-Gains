@@ -1,5 +1,6 @@
 import food
 import math
+import time
 
 report = food.get_report()
 
@@ -46,7 +47,9 @@ def calculate_difference(item1, item2):
 
     return math.sqrt(carb_diff**2 + protein_diff**2 + fat_diff**2)
 
-def build_graph(threshold = 5.0):
+def build_graph(threshold = 10.0):
+    
+    start_time = time.time()
     food_report = food.get_report()
     graph = {}
 
@@ -58,6 +61,8 @@ def build_graph(threshold = 5.0):
             if difference < threshold:
                 graph[(item1['Description'], item2['Description'])] = difference
 
+    end_time = time.time()
+    print(f"Graph built in {time.time() - start_time} seconds.")
     return graph
 
 def search_food(food_item):
@@ -99,5 +104,8 @@ def search_food(food_item):
             print("INVALID SELECTION.")
 
 if __name__ == '__main__':
-    main_menu()
+    print("Welcome to Gourmet Gains!\n")
+    build_graph()
+    
+
 
