@@ -45,7 +45,7 @@ def calculate_difference(item1, item2):
 
     return math.sqrt(carb_diff**2 + protein_diff**2 + fat_diff**2)
 
-def build_graph():
+def build_graph(threshold = 5.0):
     food_report = food.get_report()
     graph = {}
 
@@ -54,7 +54,8 @@ def build_graph():
             item1 = food_report[i]
             item2 = food_report[j]
             difference = calculate_difference(item1, item2)
-            graph[(item1['Description'], item2['Description'])] = difference
+            if difference < threshold:
+                graph[(item1['Description'], item2['Description'])] = difference
 
     return graph
 
