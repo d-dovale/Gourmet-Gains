@@ -100,4 +100,5 @@ def search_food(food_item):
 
 if __name__ == '__main__':
     main_menu()
+    build_graph()
 
