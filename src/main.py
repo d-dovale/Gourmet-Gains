@@ -22,7 +22,7 @@ def main_menu():
             continue
 
         if(choice == 1):
-            pass
+            dijkstra_recommendation()
 
         elif(choice == 2):
             pass
@@ -154,6 +154,38 @@ def search_food(food_item):
         else:
             print("INVALID SELECTION.")
         
+
+def dijkstra(graph, start, report):
+    distances = {food_item['Description']: float('infinity') for food_item in report}
+    distances[start] = 0
+    visited = set()
+
+    while len(visited) < len(report):
+        current_food = min((food for food in report if food['Description'] not in visited), key=lambda x: distances[x['Description']])
+        visited.add(current_food['Description'])
+
+        for neighbor, weight in graph.get(current_food['Description'], []):
+            distance = distances[current_food['Description']] + weight
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+
+    return distances
+
+def dijkstra_recommendation(graph, report):
+    start_food = input("Enter the starting food item: ")
+
+    if start_food not in [food_item['Description'] for food_item in report]:
+        print("Invalid food item. Please try again.")
+        return
+
+    distances = dijkstra(graph, start_food, report)
+
+    print("\nRecommended Food Items:")
+    for food_item, distance in sorted(distances.items(), key=lambda x: x[1])[1:6]:
+        if distance != float('infinity'):
+            print(f"{food_item}: {distance} units away")
+        else:
+            print(f"{food_item}: Not reachable")
 
 if __name__ == '__main__':
     #print("Welcome to Gourmet Gains!\n")
