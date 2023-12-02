@@ -2,6 +2,7 @@ import food
 import math
 import time
 
+report = food.get_report()
 
 def main_menu():
     print("WELCOME TO GOURMET GAINS!\n")
@@ -50,6 +51,8 @@ def calculate_difference(item1, item2):
 
     return math.sqrt(carb_diff**2 + protein_diff**2 + fat_diff**2)
 
+# Slower version of graph that takes about 30 seconds to run
+
 def build_graph(threshold = 0.5):
     start_time = time.time()
     food_report = food.get_report()
@@ -65,6 +68,24 @@ def build_graph(threshold = 0.5):
 
     end_time = time.time()
     print(f"Graph built in {time.time() - start_time} seconds.")
+    return graph
+
+# Faster version of graph that takes in a specific item and builds a graph for that item
+
+def build_graph_for_item(selected_item, food_report, threshold=10):
+    # Building the graph only for the selected item
+    start_time = time.time()
+    graph = {}
+
+    for item in food_report:
+        if item['Description'] != selected_item['Description']:
+            difference = calculate_difference(selected_item, item)
+            if difference < threshold:
+                graph[selected_item['Description']] = (item['Description'], difference)
+    
+    end_time = time.time()
+    print(f"Graph built in {time.time() - start_time} seconds.")
+
     return graph
 
 def dijkstra(graph, start):
@@ -162,8 +183,9 @@ def dijkstra_recommendation(graph, report):
             print(f"{food_item}: Not reachable")
 
 if __name__ == '__main__':
-    print("Welcome to Gourmet Gains!\n")
-    build_graph()
+    #print("Welcome to Gourmet Gains!\n")
+    #build_graph()
+    build_graph_for_item(report[0], report)
     
 
 
