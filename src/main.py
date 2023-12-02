@@ -31,6 +31,7 @@ def main_menu():
         if(choice == 1):
             if selected_item:
                 closest_items = dijkstra(graph, selected_item['Description'], 20)
+                printdijkstra(closest_items)
                 # for item in closest_items:
                 #     print(item)
             else:
@@ -144,9 +145,6 @@ def search_food(food_item):
             return selected_item
         else:
             print("INVALID SELECTION.")
-        
-
-
 
 def dijkstra(graph, start, n):
     shortest_distances = {node: float('infinity') for node in graph}
