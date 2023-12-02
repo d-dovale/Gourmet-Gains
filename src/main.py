@@ -52,13 +52,16 @@ def main_menu():
 
         elif(choice == 5):
             pass
-
     
         elif(choice == 6):
+            select_food_item()
+        
+        elif(choice == 7):
             print("\nThank you for using Gourmet Gains!\n")  
             break
         else:
             print("Invalid option. Please try again.\n")
+            
 
 def select_food_item():
     global selected_item
