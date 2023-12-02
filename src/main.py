@@ -85,7 +85,6 @@ def build_graph(threshold = 0.5):
 # Faster version of graph that takes in a specific item and builds a graph for that item
 
 def build_graph_for_item(selected_item, food_report, threshold = 2):
-    start_time = time.time()
     graph = {item['Description']: [] for item in food_report}  # Initialize graph with all food items
 
     for item in food_report:
@@ -94,9 +93,6 @@ def build_graph_for_item(selected_item, food_report, threshold = 2):
             if difference < threshold:
                 graph[selected_item['Description']].append((item['Description'], difference))
                 graph[item['Description']].append((selected_item['Description'], difference))  # Add reverse edge
-    
-    end_time = time.time()
-    print(f"Graph built in {time.time() - start_time} seconds.")
 
     return graph
 
@@ -167,11 +163,13 @@ def dijkstra(graph, start, n):
 
     print(f"\n{n} Closest Food Items to '{selected_item['Description']}' based on the Macronutrient profile: \n")
     count = 1
+
     for item in closest_items[1:]:
         
         print(f'{count}. {item[0]}')
         count +=1
-    print("\n")
+
+    print("\n-------------------------------------------------------------\n")
 
 def printdijkstra(closest_n_items, num):
     print(f"{num} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
@@ -186,12 +184,5 @@ def printdijkstra(closest_n_items, num):
 
 
 if __name__ == '__main__':
-    # report = food.get_report()
-    # selected_item = report[0]  # Assuming this is human milk
-    # graph = build_graph_for_item(selected_item, report)
-
-    # closest_n_items = dijkstra(graph, selected_item['Description'], 20)  # Find 10 closest items
-    # print("10 Closest Food Items to", selected_item['Description'], ":\n", closest_n_items)
-
     main_menu()
 
