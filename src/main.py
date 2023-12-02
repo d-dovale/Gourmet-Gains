@@ -160,10 +160,10 @@ if __name__ == '__main__':
     #build_graph()
     
     report = food.get_report()
-    selected_item = report[0]  # Assuming this is human milk
+    selected_item = report[100]  # Assuming this is human milk
     graph = build_graph_for_item(selected_item, report)
 
-    closest_n_items = dijkstra(graph, selected_item['Description'], 20)  # Find 10 closest items
+    closest_n_items = dijkstra(graph, selected_item['Description'], 5)  # Find 10 closest items
     print("10 Closest Food Items to", selected_item['Description'], ":\n", closest_n_items)
 
 
