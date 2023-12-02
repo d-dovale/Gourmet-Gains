@@ -32,11 +32,13 @@ def main_menu():
 
         if(choice == 1):
             if selected_item:
-                try:
-                 num = int(input("Enter the amount of recommended food items: "))
-                except ValueError:
-                    print("Invalid Input. Please enter a number.\n")
-                    continue
+                while True:
+                    try:
+                        num = int(input("Enter the amount of recommended food items: "))
+                        break
+                    except ValueError:
+                        print("Invalid Input. Please enter a number.\n")
+                        continue
                 dijkstra(graph, selected_item['Description'], num)
             else:
                 print("No food item selected. Please select an item first.")
@@ -60,7 +62,7 @@ def main_menu():
             print("\nThank you for using Gourmet Gains!\n")  
             break
         else:
-            print("Invalid option. Please try again.\n")
+            print("Invalid option. Please try again.")
             
 
 def select_food_item():
@@ -147,7 +149,7 @@ def search_food(food_item):
             print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
             print(f"  - Proteins: {selected_item['Data']['Protein']} g")
             print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
-            print("\n-------------------------------------------------------------\n")
+            print("\n-------------------------------------------------------------")
             
             return selected_item
         else:
@@ -182,9 +184,9 @@ def dijkstra(graph, start, n):
         print(f'{count}. {item[0]}')
         count +=1
 
-    print(f"Dijkstra's Algorithm completed in {time.time() - start_time} seconds!")
+    print(f"\nDijkstra's Algorithm completed in {time.time() - start_time} seconds!")
 
-    print("\n-------------------------------------------------------------\n")
+    print("-------------------------------------------------------------")
 
 if __name__ == '__main__':
     main_menu()
