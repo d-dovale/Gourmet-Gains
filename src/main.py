@@ -171,17 +171,6 @@ def dijkstra(graph, start, n):
 
     print("\n-------------------------------------------------------------\n")
 
-def printdijkstra(closest_n_items, num):
-    print(f"{num} Closest Food Items to '{selected_item['Description']}' based on the Macronutrient profile: \n")
-    count = 1
-    for item in closest_items[1:]:  # Skip first item since it will be the selected item itself
-        
-        print(f'{count}. {item[0]}:')
-        count +=1
-    
-    print(f"\nDijkstra's algorithm completed in {time.time() - start_time} seconds.")
-    print("\n------------------------------------------------------------\n")
-
 
 if __name__ == '__main__':
     main_menu()
