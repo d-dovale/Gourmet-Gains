@@ -1,6 +1,7 @@
 import food
 import math
 import time
+from heapq import heappush, heappop
 
 report = food.get_report()
 
@@ -72,40 +73,44 @@ def build_graph(threshold = 0.5):
 
 # Faster version of graph that takes in a specific item and builds a graph for that item
 
-def build_graph_for_item(selected_item, food_report, threshold=10):
-    # Building the graph only for the selected item
+def build_graph_for_item(selected_item, food_report, threshold = 2):
     start_time = time.time()
-    graph = {}
+    graph = {item['Description']: [] for item in food_report}  # Initialize graph with all food items
 
     for item in food_report:
         if item['Description'] != selected_item['Description']:
             difference = calculate_difference(selected_item, item)
             if difference < threshold:
-                graph[selected_item['Description']] = (item['Description'], difference)
+                graph[selected_item['Description']].append((item['Description'], difference))
+                graph[item['Description']].append((selected_item['Description'], difference))  # Add reverse edge
     
     end_time = time.time()
     print(f"Graph built in {time.time() - start_time} seconds.")
 
     return graph
 
-def dijkstra(graph, start):
-    start_time = time.time()
-
+def dijkstra(graph, start, n):
     shortest_distances = {node: float('infinity') for node in graph}
     shortest_distances[start] = 0
-    unvisited_nodes = list(graph.keys())
+    visited = set()
+    priority_queue = [(0, start)]
 
-    while unvisited_nodes:
-        current_node = min(unvisited_nodes, key=lambda node: shortest_distances[node])
-        unvisited_nodes.remove(current_node)
+    closest_items = []
 
-        for neighbour, weight in graph[current_node].items():
-            distance = shortest_distances[current_node] + weight
-            if distance < shortest_distances[neighbour]:
-                shortest_distances[neighbour] = distance
-    start_time = time.time()
-    print(f"Dijkstra's algorithm completed in {time.time() - start_time} seconds.")
-    return shortest_distances
+    while priority_queue and len(closest_items) < n:
+        current_distance, current_node = heappop(priority_queue)
+        if current_node not in visited:
+            visited.add(current_node)
+            closest_items.append((current_node, current_distance))
+
+            for neighbor, weight in graph[current_node]:
+                if neighbor not in visited:
+                    new_distance = current_distance + weight
+                    if new_distance < shortest_distances[neighbor]:
+                        shortest_distances[neighbor] = new_distance
+                        heappush(priority_queue, (new_distance, neighbor))
+
+    return closest_items[1:]  # Exclude the start node from the result
 
 def search_food(food_item):
     food_report = food.get_report()
@@ -153,7 +158,12 @@ def search_food(food_item):
 if __name__ == '__main__':
     #print("Welcome to Gourmet Gains!\n")
     #build_graph()
-    build_graph_for_item(report[0], report)
     
+    report = food.get_report()
+    selected_item = report[0]  # Assuming this is human milk
+    graph = build_graph_for_item(selected_item, report)
+
+    closest_n_items = dijkstra(graph, selected_item['Description'], 20)  # Find 10 closest items
+    print("10 Closest Food Items to", selected_item['Description'], ":\n", closest_n_items)
 
 
