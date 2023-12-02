@@ -170,6 +170,7 @@ def dijkstra(graph, start, n):
         
         print(f'{count}. {item[0]}')
         count +=1
+    print("\n")
 
 def printdijkstra(closest_n_items, num):
     print(f"{num} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
