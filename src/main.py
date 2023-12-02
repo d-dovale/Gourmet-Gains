@@ -146,6 +146,8 @@ def search_food(food_item):
             print("INVALID SELECTION.")
         
 
+
+
 def dijkstra(graph, start, n):
     shortest_distances = {node: float('infinity') for node in graph}
     shortest_distances[start] = 0
@@ -168,6 +170,14 @@ def dijkstra(graph, start, n):
                         heappush(priority_queue, (new_distance, neighbor))
 
     return closest_items[1:]  # Exclude the start node from the result
+
+def printdijkstra(closest_n_items, num):
+    print(f"{num} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
+    count = 1
+    for item in closest_n_items:
+        
+        print(f'{count}. {item[0]}:')
+        count +=1
 
 if __name__ == '__main__':
     # report = food.get_report()
