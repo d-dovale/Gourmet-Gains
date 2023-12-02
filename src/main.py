@@ -132,6 +132,7 @@ def search_food(food_item):
             print("INVALID SELECTION.")
         
 
+
 def dijkstra(graph, start, n):
     shortest_distances = {node: float('infinity') for node in graph}
     shortest_distances[start] = 0
@@ -155,15 +156,24 @@ def dijkstra(graph, start, n):
 
     return closest_items[1:]  # Exclude the start node from the result
 
+def printdijkstra(closest_n_items, num):
+    print(f"{num} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
+    count = 1
+    for item in closest_n_items:
+        
+        print(f'{count}. {item[0]}:')
+        count +=1
+
 if __name__ == '__main__':
     #print("Welcome to Gourmet Gains!\n")
     #build_graph()
     
     report = food.get_report()
-    selected_item = report[100]  # Assuming this is human milk
+    selected_item = report[1]  # Assuming this is human milk
     graph = build_graph_for_item(selected_item, report)
-
-    closest_n_items = dijkstra(graph, selected_item['Description'], 5)  # Find 10 closest items
-    print("10 Closest Food Items to", selected_item['Description'], ":\n", closest_n_items)
+    num = int(input("Enter the number of items you want to see: "))
+    closest_n_items = dijkstra(graph, selected_item['Description'], num)  # Find 10 closest items
+    printdijkstra(closest_n_items, num)
+    #print("10 Closest Food Items to", selected_item['Description'],":\n", closest_n_items)
 
 
