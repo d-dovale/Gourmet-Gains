@@ -13,7 +13,7 @@ def main_menu():
 
     print("- Start by entering a food item you're interested in.")
     print("- You can then choose various options to find similar food items or explore their macronutrient content.")
-    print("- Feel free to re-select a food item at any time to start a new search.\n")
+    print("- Feel free to select a different food item at any time to start a new search.\n")
 
     select_food_item()
 
@@ -33,11 +33,13 @@ def main_menu():
 
         if(choice == 1):
             if selected_item:
-                try:
-                 num = int(input("Enter the amount of recommended food items: "))
-                except ValueError:
-                    print("Invalid Input. Please enter a number.\n")
-                    continue
+                while True:
+                    try:
+                        num = int(input("Enter the amount of recommended food items: "))
+                        break
+                    except ValueError:
+                        print("Invalid Input. Please enter a number.\n")
+                        continue
                 dijkstra(graph, selected_item['Description'], num)
             else:
                 print("No food item selected. Please select an item first.")
@@ -69,7 +71,7 @@ def main_menu():
             print("\nThank you for using Gourmet Gains!\n")  
             break
         else:
-            print("Invalid option. Please try again.\n")
+            print("Invalid option. Please try again.")
             
 
 def select_food_item():
@@ -156,7 +158,7 @@ def search_food(food_item):
             print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
             print(f"  - Proteins: {selected_item['Data']['Protein']} g")
             print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
-            print("\n-------------------------------------------------------------\n")
+            print("\n-------------------------------------------------------------")
             
             return selected_item
         else:
@@ -190,10 +192,11 @@ def dijkstra(graph, start, n):
         
         print(f'{count}. {item[0]}')
         count +=1
+    
+    print(f"\n{count - 1} items found.")
+    print(f"\nDijkstra's Algorithm completed in {time.time() - start_time} seconds!")
 
-    print(f"Dijkstra's Algorithm completed in {time.time() - start_time} seconds!")
-
-    print("\n-------------------------------------------------------------\n")
+    print("-------------------------------------------------------------")
 
 def a_star_search(graph, start, n):
     start_time = time.time()
