@@ -31,7 +31,7 @@ def main_menu():
         if(choice == 1):
             if selected_item:
                 try:
-                 num = int(input("Enter the number of food items you want to see: "))
+                 num = int(input("Enter the amount of recommended food items: "))
                 except ValueError:
                     print("Invalid Input. Please enter a number.\n")
                     continue
