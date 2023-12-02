@@ -183,8 +183,8 @@ def dijkstra(graph, start, n):
         
         print(f'{count}. {item[0]}')
         count +=1
-    if count != n:
-        print(f"\nOnly {count - 1} items found.")
+    
+    print(f"\n{count - 1} items found.")
     print(f"\nDijkstra's Algorithm completed in {time.time() - start_time} seconds!")
 
     print("-------------------------------------------------------------")
