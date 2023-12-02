@@ -9,19 +9,21 @@ selected_item = None
 def main_menu():
     global selected_item
     print("WELCOME TO GOURMET GAINS!\n")
-    food_item = input("Input a food item: ")
-    selected_item = search_food(food_item)
 
-     # Check if an item was actually selected
-    if not selected_item:
-        return
+    print("- Start by entering a food item you're interested in.")
+    print("- You can then choose various options to find similar food items or explore their macronutrient content.")
+    print("- Feel free to re-select a food item at any time to start a new search.\n")
 
-    print("Main Menu:\n")
+    select_food_item()
 
     while True:
-        graph = build_graph_for_item(selected_item, report)
+        if not selected_item:
+            select_food_item()
 
-        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Marshall’s Algorithm \n3. Search Carbohydrates\n4. Search Protein \n5. Search Fats \n6. Exit\n")
+        graph = build_graph_for_item(selected_item, report)
+        print("\nMain Menu:\n")
+        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Marshall’s Algorithm\n3. Search Carbohydrates\n4. Search Protein\n5. Search Fats\n6. Select a Different Starting Food Item\n7. Exit\n")
+
         try:
             choice = int(input("Pick an Option: "))
         except ValueError:
@@ -55,10 +57,14 @@ def main_menu():
         elif(choice == 6):
             print("\nThank you for using Gourmet Gains!\n")  
             break
-        
         else:
             print("Invalid option. Please try again.\n")
-            continue
+
+def select_food_item():
+    global selected_item
+    food_item = input("Input a food item: ")
+    selected_item = search_food(food_item)
+
 
 def calculate_difference(item1, item2):
     # Example: Euclidean distance based on macronutrients
