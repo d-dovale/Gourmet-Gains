@@ -30,10 +30,7 @@ def main_menu():
 
         if(choice == 1):
             if selected_item:
-                closest_items = dijkstra(graph, selected_item['Description'], 20)
-                printdijkstra(closest_items)
-                # for item in closest_items:
-                #     print(item)
+                 dijkstra(graph, selected_item['Description'], 20)
             else:
                 print("No food item selected. Please select an item first.")
 
@@ -167,7 +164,12 @@ def dijkstra(graph, start, n):
                         shortest_distances[neighbor] = new_distance
                         heappush(priority_queue, (new_distance, neighbor))
 
-    return closest_items[1:]  # Exclude the start node from the result
+    print(f"{n} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
+    count = 1
+    for item in closest_items[1:]:
+        
+        print(f'{count}. {item[0]}:')
+        count +=1
 
 def printdijkstra(closest_n_items, num):
     print(f"{num} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
