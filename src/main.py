@@ -4,15 +4,22 @@ import time
 from heapq import heappush, heappop
 
 report = food.get_report()
+selected_item = None
 
 def main_menu():
+    global selected_item
     print("WELCOME TO GOURMET GAINS!\n")
-    search_food(input("Input a food item: "))
+    food_item = input("Input a food item: ")
+    selected_item = search_food(food_item)
 
+     # Check if an item was actually selected
+    if not selected_item:
+        return
 
     print("Main Menu:\n")
 
     while True:
+        graph = build_graph_for_item(selected_item, report)
 
         print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Marshall’s Algorithm \n3. Search Carbohydrates\n4. Search Protein \n5. Search Fats \n6. Exit\n")
         try:
@@ -22,7 +29,12 @@ def main_menu():
             continue
 
         if(choice == 1):
-            pass
+            if selected_item:
+                closest_items = dijkstra(graph, selected_item['Description'], 20)
+                # for item in closest_items:
+                #     print(item)
+            else:
+                print("No food item selected. Please select an item first.")
 
         elif(choice == 2):
             pass
@@ -40,6 +52,7 @@ def main_menu():
         elif(choice == 6):
             print("\nThank you for using Gourmet Gains!\n")  
             break
+        
         else:
             print("Invalid option. Please try again.\n")
             continue
@@ -127,7 +140,8 @@ def search_food(food_item):
             print(f"  - Proteins: {selected_item['Data']['Protein']} g")
             print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
             print("\n---------------------------------------------\n")
-            break
+            
+            return selected_item
         else:
             print("INVALID SELECTION.")
         
@@ -156,14 +170,12 @@ def dijkstra(graph, start, n):
     return closest_items[1:]  # Exclude the start node from the result
 
 if __name__ == '__main__':
-    #print("Welcome to Gourmet Gains!\n")
-    #build_graph()
-    
-    report = food.get_report()
-    selected_item = report[0]  # Assuming this is human milk
-    graph = build_graph_for_item(selected_item, report)
+    # report = food.get_report()
+    # selected_item = report[0]  # Assuming this is human milk
+    # graph = build_graph_for_item(selected_item, report)
 
-    closest_n_items = dijkstra(graph, selected_item['Description'], 20)  # Find 10 closest items
-    print("10 Closest Food Items to", selected_item['Description'], ":\n", closest_n_items)
+    # closest_n_items = dijkstra(graph, selected_item['Description'], 20)  # Find 10 closest items
+    # print("10 Closest Food Items to", selected_item['Description'], ":\n", closest_n_items)
 
+    main_menu()
 
