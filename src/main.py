@@ -148,7 +148,7 @@ def dijkstra(graph, start, n):
 
     closest_items = []
 
-    while priority_queue and len(closest_items) < n:
+    while priority_queue and len(closest_items) < n + 1:
         current_distance, current_node = heappop(priority_queue)
         if current_node not in visited:
             visited.add(current_node)
@@ -163,7 +163,7 @@ def dijkstra(graph, start, n):
 
     print(f"{n} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
     count = 1
-    for item in closest_items:
+    for item in closest_items[1:]:  # Skip first item since it will be the selected item itself
         
         print(f'{count}. {item[0]}:')
         count +=1
