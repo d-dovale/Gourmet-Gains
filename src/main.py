@@ -30,24 +30,32 @@ def main_menu():
             print("Invalid Input. Please enter a number.\n")
             continue
 
-        if choice == 1:
-            dijkstra(graph, selected_item['Description'], 20)
-        elif choice == 2:
-            # Floyd Marshall's Algorithm logic here
+        if(choice == 1):
+            if selected_item:
+                try:
+                 num = int(input("Enter the number of food items you want to see: "))
+                except ValueError:
+                    print("Invalid Input. Please enter a number.\n")
+                    continue
+                dijkstra(graph, selected_item['Description'], num)
+            else:
+                print("No food item selected. Please select an item first.")
+
+        elif(choice == 2):
             pass
-        elif choice == 3:
-            # Search Carbohydrates logic here
+
+        elif(choice == 3):
             pass
-        elif choice == 4:
-            # Search Protein logic here
+
+        elif(choice == 4):
             pass
-        elif choice == 5:
-            # Search Fats logic here
+
+        elif(choice == 5):
             pass
-        elif choice == 6:
-            select_food_item()
-        elif choice == 7:
-            print("\nThank you for using Gourmet Gains!\n")
+
+    
+        elif(choice == 6):
+            print("\nThank you for using Gourmet Gains!\n")  
             break
         else:
             print("Invalid option. Please try again.\n")
@@ -166,13 +174,14 @@ def dijkstra(graph, start, n):
 
     print(f"\n{n} Closest Food Items to '{selected_item['Description']}' based on the Macronutrient profile: \n")
     count = 1
-
     for item in closest_items[1:]:
         
         print(f'{count}. {item[0]}')
         count +=1
 
     print("\n-------------------------------------------------------------\n")
+
+    print(f" Dijkstra's Algorithm completed in {time.time() - start_time} seconds.")
 
 if __name__ == '__main__':
     main_menu()
