@@ -30,7 +30,13 @@ def main_menu():
 
         if(choice == 1):
             if selected_item:
-                 dijkstra(graph, selected_item['Description'], 20)
+                try:
+                    num = int(input("Enter the number of food items you want to see: "))
+                except ValueError:
+                    print("Invalid Input. Please enter a number.\n")
+                    continue
+
+                dijkstra(graph, selected_item['Description'], num)
             else:
                 print("No food item selected. Please select an item first.")
 
@@ -144,6 +150,8 @@ def search_food(food_item):
             print("INVALID SELECTION.")
 
 def dijkstra(graph, start, n):
+    start_time = time.time()
+
     shortest_distances = {node: float('infinity') for node in graph}
     shortest_distances[start] = 0
     visited = set()
@@ -166,18 +174,13 @@ def dijkstra(graph, start, n):
 
     print(f"{n} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
     count = 1
-    for item in closest_items[1:]:
+    for item in closest_items:
         
         print(f'{count}. {item[0]}:')
         count +=1
+    
+    print(f"\nDijkstra's algorithm completed in {time.time() - start_time} seconds.\n")
 
-def printdijkstra(closest_n_items, num):
-    print(f"{num} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
-    count = 1
-    for item in closest_n_items:
-        
-        print(f'{count}. {item[0]}:')
-        count +=1
 
 if __name__ == '__main__':
     # report = food.get_report()
