@@ -53,7 +53,6 @@ def main_menu():
         elif(choice == 5):
             pass
 
-    
         elif(choice == 6):
             print("\nThank you for using Gourmet Gains!\n")  
             break
@@ -179,9 +178,9 @@ def dijkstra(graph, start, n):
         print(f'{count}. {item[0]}')
         count +=1
 
-    print("\n-------------------------------------------------------------\n")
+    print(f"Dijkstra's Algorithm completed in {time.time() - start_time} seconds!")
 
-    print(f" Dijkstra's Algorithm completed in {time.time() - start_time} seconds.")
+    print("\n-------------------------------------------------------------\n")
 
 if __name__ == '__main__':
     main_menu()
