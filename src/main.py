@@ -12,7 +12,7 @@ def main_menu():
 
     print("- Start by entering a food item you're interested in.")
     print("- You can then choose various options to find similar food items or explore their macronutrient content.")
-    print("- Feel free to re-select a food item at any time to start a new search.\n")
+    print("- Feel free to select a different food item at any time to start a new search.\n")
 
     select_food_item()
 
