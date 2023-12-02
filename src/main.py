@@ -13,7 +13,11 @@ def main_menu():
     while True:
 
         print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Marshall’s Algorithm \n3. Search Carbohydrates\n4. Search Protein \n5. Search Fats \n6. Exit\n")
-        choice = int(input("Pick an Option: "))
+        try:
+            choice = int(input("Pick an Option: "))
+        except ValueError:
+            print("Invalid Input. Please enter a number.\n")
+            continue
 
         if(choice == 1):
             pass
@@ -63,6 +67,25 @@ def build_graph(threshold = 0.5):
     print(f"Graph built in {time.time() - start_time} seconds.")
     return graph
 
+def dijkstra(graph, start):
+    start_time = time.time()
+
+    shortest_distances = {node: float('infinity') for node in graph}
+    shortest_distances[start] = 0
+    unvisited_nodes = list(graph.keys())
+
+    while unvisited_nodes:
+        current_node = min(unvisited_nodes, key=lambda node: shortest_distances[node])
+        unvisited_nodes.remove(current_node)
+
+        for neighbour, weight in graph[current_node].items():
+            distance = shortest_distances[current_node] + weight
+            if distance < shortest_distances[neighbour]:
+                shortest_distances[neighbour] = distance
+    start_time = time.time()
+    print(f"Dijkstra's algorithm completed in {time.time() - start_time} seconds.")
+    return shortest_distances
+
 def search_food(food_item):
     food_report = food.get_report()
     food_item_lower = food_item.lower()
@@ -88,22 +111,27 @@ def search_food(food_item):
     for i, item in enumerate(search_results):
         print(f"{i + 1}. {item['Description']}")
     while(True):
-        choice = int(input("\nEnter your choice (number): ")) - 1
-        if 0 <= choice < len(search_results):
-            selected_item = search_results[choice]
-            print("\nSelected Item:", selected_item['Description'])
-            print("Macronutrients:")
-            print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
-            print(f"  - Proteins: {selected_item['Data']['Protein']} g")
-            print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
-            print("\n---------------------------------------------\n")
-            break
-        else:
-            print("INVALID SELECTION.")
+        try:
+            choice = int(input("\nEnter your choice (number): ")) - 1
+            if 0 <= choice < len(search_results):
+                selected_item = search_results[choice]
+                print("\nSelected Item:", selected_item['Description'])
+                print("Macronutrients:")
+                print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
+                print(f"  - Proteins: {selected_item['Data']['Protein']} g")
+                print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
+                print("\n---------------------------------------------\n")
+                break
+            else:
+                print("INVALID SELECTION.")
+        except ValueError:
+            print("Invalid Input. Please enter a number.")
+            continue
 
 if __name__ == '__main__':
-    print("Welcome to Gourmet Gains!\n")
-    build_graph()
+    #print("Welcome to Gourmet Gains!\n")
+    #build_graph()
+    main_menu()
     
 
 
