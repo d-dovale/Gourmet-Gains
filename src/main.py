@@ -8,19 +8,15 @@ selected_item = None
 
 def main_menu():
     global selected_item
+    
     print("WELCOME TO GOURMET GAINS!\n")
     food_item = input("Input a food item: ")
     selected_item = search_food(food_item)
-
-     # Check if an item was actually selected
-    if not selected_item:
-        return
+    graph = build_graph_for_item(selected_item, report)
 
     print("Main Menu:\n")
 
     while True:
-        graph = build_graph_for_item(selected_item, report)
-
         print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Marshall’s Algorithm \n3. Search Carbohydrates\n4. Search Protein \n5. Search Fats \n6. Exit\n")
         try:
             choice = int(input("Pick an Option: "))
@@ -30,6 +26,7 @@ def main_menu():
 
         if(choice == 1):
             if selected_item:
+                 print("\n")
                  dijkstra(graph, selected_item['Description'], 20)
             else:
                 print("No food item selected. Please select an item first.")
@@ -66,7 +63,6 @@ def calculate_difference(item1, item2):
 # Slower version of graph that takes about 30 seconds to run
 
 def build_graph(threshold = 0.5):
-    start_time = time.time()
     food_report = food.get_report()
     graph = {}
 
@@ -78,14 +74,11 @@ def build_graph(threshold = 0.5):
             if difference < threshold:
                 graph[(item1['Description'], item2['Description'])] = difference
 
-    end_time = time.time()
-    print(f"Graph built in {time.time() - start_time} seconds.")
     return graph
 
 # Faster version of graph that takes in a specific item and builds a graph for that item
 
 def build_graph_for_item(selected_item, food_report, threshold = 2):
-    start_time = time.time()
     graph = {item['Description']: [] for item in food_report}  # Initialize graph with all food items
 
     for item in food_report:
@@ -94,9 +87,6 @@ def build_graph_for_item(selected_item, food_report, threshold = 2):
             if difference < threshold:
                 graph[selected_item['Description']].append((item['Description'], difference))
                 graph[item['Description']].append((selected_item['Description'], difference))  # Add reverse edge
-    
-    end_time = time.time()
-    print(f"Graph built in {time.time() - start_time} seconds.")
 
     return graph
 
@@ -180,12 +170,5 @@ def printdijkstra(closest_n_items, num):
         count +=1
 
 if __name__ == '__main__':
-    # report = food.get_report()
-    # selected_item = report[0]  # Assuming this is human milk
-    # graph = build_graph_for_item(selected_item, report)
-
-    # closest_n_items = dijkstra(graph, selected_item['Description'], 20)  # Find 10 closest items
-    # print("10 Closest Food Items to", selected_item['Description'], ":\n", closest_n_items)
-
     main_menu()
 
