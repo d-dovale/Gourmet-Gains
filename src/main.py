@@ -2,6 +2,7 @@ import food
 import math
 import time
 from heapq import heappush, heappop
+import networkx as nx
 
 report = food.get_report()
 selected_item = None
@@ -22,7 +23,7 @@ def main_menu():
 
         graph = build_graph_for_item(selected_item, report)
         print("\nMain Menu:\n")
-        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Marshall’s Algorithm\n3. Search Carbohydrates\n4. Search Protein\n5. Search Fats\n6. Select a Different Starting Food Item\n7. Exit\n")
+        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using A* Search Algorithm\n3. Search Carbohydrates\n4. Search Protein\n5. Search Fats\n6. Select a Different Starting Food Item\n7. Exit\n")
 
         try:
             choice = int(input("Pick an Option: "))
@@ -42,7 +43,15 @@ def main_menu():
                 print("No food item selected. Please select an item first.")
 
         elif(choice == 2):
-            pass
+            if selected_item:
+                try:
+                    num = int(input("Enter the amount of recommended food items: "))
+                except ValueError:
+                    print("Invalid Input. Please enter a number.\n")
+                    continue
+                a_star_search(graph, selected_item['Description'], num)
+            else:
+                print("No food item selected. Please select an item first.")
 
         elif(choice == 3):
             pass
@@ -184,6 +193,38 @@ def dijkstra(graph, start, n):
 
     print(f"Dijkstra's Algorithm completed in {time.time() - start_time} seconds!")
 
+    print("\n-------------------------------------------------------------\n")
+
+def a_star_search(graph, start, n):
+    start_time = time.time()
+    priority_queue = [(0, start, 0)]  # (f_score, node, g_score)
+    g_scores = {node: float('infinity') for node in graph}
+    g_scores[start] = 0
+    visited = set()
+    closest_items = []
+
+    # Retrieve the start item data
+    start_item_data = next(item for item in report if item['Description'] == start)
+
+    while priority_queue and len(closest_items) < n:
+        _, current_node, g_score_current = heappop(priority_queue)
+
+        if current_node not in visited:
+            visited.add(current_node)
+            closest_items.append((current_node, g_score_current))
+
+            for neighbor, weight in graph[current_node]:
+                if neighbor not in visited:
+                    tentative_g_score = g_score_current + weight
+                    neighbor_item_data = next(item for item in report if item['Description'] == neighbor)
+                    f_score = tentative_g_score + calculate_difference(start_item_data, neighbor_item_data)  # Updated heuristic
+                    heappush(priority_queue, (f_score, neighbor, tentative_g_score))
+
+    print(f"\n{n} Closest Food Items to '{start}' based on the Macronutrient profile using A* Algorithm: \n")
+    for i, (item, _) in enumerate(closest_items[1:], 1):  # Skip the first item as it's the start itself
+        print(f'{i}. {item}')
+
+    print(f"A* Algorithm completed in {time.time() - start_time} seconds!")
     print("\n-------------------------------------------------------------\n")
 
 if __name__ == '__main__':
