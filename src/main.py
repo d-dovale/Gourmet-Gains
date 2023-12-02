@@ -134,20 +134,21 @@ def search_food(food_item):
     while(True):
         try:
             choice = int(input("\nEnter your choice (number): ")) - 1
-            if 0 <= choice < len(search_results):
-                selected_item = search_results[choice]
-                print("\nSelected Item:", selected_item['Description'])
-                print("Macronutrients:")
-                print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
-                print(f"  - Proteins: {selected_item['Data']['Protein']} g")
-                print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
-                print("\n---------------------------------------------\n")
-                break
-            else:
-                print("INVALID SELECTION.")
         except ValueError:
             print("Invalid Input. Please enter a number.")
             continue
+        if 0 <= choice < len(search_results):
+            selected_item = search_results[choice]
+            print("\nSelected Item:", selected_item['Description'])
+            print("Macronutrients:")
+            print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
+            print(f"  - Proteins: {selected_item['Data']['Protein']} g")
+            print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
+            print("\n---------------------------------------------\n")
+            break
+        else:
+            print("INVALID SELECTION.")
+        
 
 if __name__ == '__main__':
     #print("Welcome to Gourmet Gains!\n")
