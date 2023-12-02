@@ -33,7 +33,7 @@ def main_menu():
         if(choice == 1):
             if selected_item:
                 try:
-                 num = int(input("Enter the number of food items you want to see: "))
+                 num = int(input("Enter the amount of recommended food items: "))
                 except ValueError:
                     print("Invalid Input. Please enter a number.\n")
                     continue
@@ -54,10 +54,14 @@ def main_menu():
             pass
 
         elif(choice == 6):
+            select_food_item()
+        
+        elif(choice == 7):
             print("\nThank you for using Gourmet Gains!\n")  
             break
         else:
             print("Invalid option. Please try again.\n")
+            
 
 def select_food_item():
     global selected_item
