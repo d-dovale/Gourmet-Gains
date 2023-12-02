@@ -9,51 +9,54 @@ selected_item = None
 def main_menu():
     global selected_item
     print("WELCOME TO GOURMET GAINS!\n")
-    food_item = input("Input a food item: ")
-    selected_item = search_food(food_item)
 
-     # Check if an item was actually selected
-    if not selected_item:
-        return
+    print("- Start by entering a food item you're interested in.")
+    print("- You can then choose various options to find similar food items or explore their macronutrient content.")
+    print("- Feel free to re-select a food item at any time to start a new search.\n")
 
-    print("Main Menu:\n")
+    select_food_item()
 
     while True:
-        graph = build_graph_for_item(selected_item, report)
+        if not selected_item:
+            select_food_item()
 
-        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Marshall’s Algorithm \n3. Search Carbohydrates\n4. Search Protein \n5. Search Fats \n6. Exit\n")
+        graph = build_graph_for_item(selected_item, report)
+        print("\nMain Menu:\n")
+        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Marshall’s Algorithm\n3. Search Carbohydrates\n4. Search Protein\n5. Search Fats\n6. Select a Different Starting Food Item\n7. Exit\n")
+
         try:
             choice = int(input("Pick an Option: "))
         except ValueError:
             print("Invalid Input. Please enter a number.\n")
             continue
 
-        if(choice == 1):
-            if selected_item:
-                 dijkstra(graph, selected_item['Description'], 20)
-            else:
-                print("No food item selected. Please select an item first.")
-
-        elif(choice == 2):
+        if choice == 1:
+            dijkstra(graph, selected_item['Description'], 20)
+        elif choice == 2:
+            # Floyd Marshall's Algorithm logic here
             pass
-
-        elif(choice == 3):
+        elif choice == 3:
+            # Search Carbohydrates logic here
             pass
-
-        elif(choice == 4):
+        elif choice == 4:
+            # Search Protein logic here
             pass
-
-        elif(choice == 5):
+        elif choice == 5:
+            # Search Fats logic here
             pass
-
-    
-        elif(choice == 6):
-            print("\nThank you for using Gourmet Gains!\n")  
+        elif choice == 6:
+            select_food_item()
+        elif choice == 7:
+            print("\nThank you for using Gourmet Gains!\n")
             break
-        
         else:
             print("Invalid option. Please try again.\n")
-            continue
+
+def select_food_item():
+    global selected_item
+    food_item = input("Input a food item: ")
+    selected_item = search_food(food_item)
+
 
 def calculate_difference(item1, item2):
     # Example: Euclidean distance based on macronutrients
@@ -170,18 +173,6 @@ def dijkstra(graph, start, n):
         count +=1
 
     print("\n-------------------------------------------------------------\n")
-
-def printdijkstra(closest_n_items, num):
-    print(f"{num} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
-    count = 1
-    for item in closest_items[1:]:  # Skip first item since it will be the selected item itself
-        
-        print(f'{count}. {item[0]}:')
-        count +=1
-    
-    print(f"\nDijkstra's algorithm completed in {time.time() - start_time} seconds.")
-    print("\n------------------------------------------------------------\n")
-
 
 if __name__ == '__main__':
     main_menu()
