@@ -112,7 +112,7 @@ def search_food(food_item):
 
     if not search_results:
         print("No items found.\n")
-        search_food(input("Input a food item: \n"))
+        search_food(input("Input a food item: "))
         return
 
     print("\nSelect the specific type of", food_item)
@@ -132,7 +132,7 @@ def search_food(food_item):
             print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
             print(f"  - Proteins: {selected_item['Data']['Protein']} g")
             print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
-            print("\n---------------------------------------------\n")
+            print("\n-------------------------------------------------------------\n")
             
             return selected_item
         else:
@@ -161,14 +161,15 @@ def dijkstra(graph, start, n):
                         shortest_distances[neighbor] = new_distance
                         heappush(priority_queue, (new_distance, neighbor))
 
-    print(f"{n} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
+    print(f"\n{n} Closest Food Items to '{selected_item['Description']}' based on Macronutrient profile: \n")
     count = 1
     for item in closest_items:
         
         print(f'{count}. {item[0]}:')
         count +=1
     
-    print(f"\nDijkstra's algorithm completed in {time.time() - start_time} seconds.\n")
+    print(f"\nDijkstra's algorithm completed in {time.time() - start_time} seconds.")
+    print("\n------------------------------------------------------------\n")
 
 
 if __name__ == '__main__':
