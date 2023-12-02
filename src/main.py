@@ -88,24 +88,7 @@ def build_graph_for_item(selected_item, food_report, threshold=10):
 
     return graph
 
-def dijkstra(graph, start):
-    start_time = time.time()
 
-    shortest_distances = {node: float('infinity') for node in graph}
-    shortest_distances[start] = 0
-    unvisited_nodes = list(graph.keys())
-
-    while unvisited_nodes:
-        current_node = min(unvisited_nodes, key=lambda node: shortest_distances[node])
-        unvisited_nodes.remove(current_node)
-
-        for neighbour, weight in graph[current_node].items():
-            distance = shortest_distances[current_node] + weight
-            if distance < shortest_distances[neighbour]:
-                shortest_distances[neighbour] = distance
-    start_time = time.time()
-    print(f"Dijkstra's algorithm completed in {time.time() - start_time} seconds.")
-    return shortest_distances
 
 def search_food(food_item):
     food_report = food.get_report()
