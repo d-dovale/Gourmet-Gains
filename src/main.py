@@ -2,7 +2,6 @@ import food
 import math
 import time
 
-report = food.get_report()
 
 def main_menu():
     print("WELCOME TO GOURMET GAINS!\n")
@@ -47,14 +46,13 @@ def calculate_difference(item1, item2):
 
     return math.sqrt(carb_diff**2 + protein_diff**2 + fat_diff**2)
 
-def build_graph(threshold = 10.0):
-    
+def build_graph(threshold = 0.5):
     start_time = time.time()
     food_report = food.get_report()
     graph = {}
 
     for i in range(len(food_report)):
-        for j in range(i+1, len(food_report)):
+        for j in range(i + 1, len(food_report)):
             item1 = food_report[i]
             item2 = food_report[j]
             difference = calculate_difference(item1, item2)
