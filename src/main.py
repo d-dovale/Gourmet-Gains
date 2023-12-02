@@ -22,7 +22,7 @@ def main_menu():
             continue
 
         if(choice == 1):
-            dijkstra_recommendation()
+            pass
 
         elif(choice == 2):
             pass
@@ -89,29 +89,6 @@ def build_graph_for_item(selected_item, food_report, threshold = 2):
 
     return graph
 
-def dijkstra(graph, start, n):
-    shortest_distances = {node: float('infinity') for node in graph}
-    shortest_distances[start] = 0
-    visited = set()
-    priority_queue = [(0, start)]
-
-    closest_items = []
-
-    while priority_queue and len(closest_items) < n:
-        current_distance, current_node = heappop(priority_queue)
-        if current_node not in visited:
-            visited.add(current_node)
-            closest_items.append((current_node, current_distance))
-
-            for neighbor, weight in graph[current_node]:
-                if neighbor not in visited:
-                    new_distance = current_distance + weight
-                    if new_distance < shortest_distances[neighbor]:
-                        shortest_distances[neighbor] = new_distance
-                        heappush(priority_queue, (new_distance, neighbor))
-
-    return closest_items[1:]  # Exclude the start node from the result
-
 def search_food(food_item):
     food_report = food.get_report()
     food_item_lower = food_item.lower()
@@ -155,37 +132,28 @@ def search_food(food_item):
             print("INVALID SELECTION.")
         
 
-def dijkstra(graph, start, report):
-    distances = {food_item['Description']: float('infinity') for food_item in report}
-    distances[start] = 0
+def dijkstra(graph, start, n):
+    shortest_distances = {node: float('infinity') for node in graph}
+    shortest_distances[start] = 0
     visited = set()
+    priority_queue = [(0, start)]
 
-    while len(visited) < len(report):
-        current_food = min((food for food in report if food['Description'] not in visited), key=lambda x: distances[x['Description']])
-        visited.add(current_food['Description'])
+    closest_items = []
 
-        for neighbor, weight in graph.get(current_food['Description'], []):
-            distance = distances[current_food['Description']] + weight
-            if distance < distances[neighbor]:
-                distances[neighbor] = distance
+    while priority_queue and len(closest_items) < n:
+        current_distance, current_node = heappop(priority_queue)
+        if current_node not in visited:
+            visited.add(current_node)
+            closest_items.append((current_node, current_distance))
 
-    return distances
+            for neighbor, weight in graph.get(current_node, []):
+                if neighbor not in visited:
+                    new_distance = current_distance + weight
+                    if new_distance < shortest_distances[neighbor]:
+                        shortest_distances[neighbor] = new_distance
+                        heappush(priority_queue, (new_distance, neighbor))
 
-def dijkstra_recommendation(graph, report):
-    start_food = input("Enter the starting food item: ")
-
-    if start_food not in [food_item['Description'] for food_item in report]:
-        print("Invalid food item. Please try again.")
-        return
-
-    distances = dijkstra(graph, start_food, report)
-
-    print("\nRecommended Food Items:")
-    for food_item, distance in sorted(distances.items(), key=lambda x: x[1])[1:6]:
-        if distance != float('infinity'):
-            print(f"{food_item}: {distance} units away")
-        else:
-            print(f"{food_item}: Not reachable")
+    return closest_items[1:]  # Exclude the start node from the result
 
 if __name__ == '__main__':
     #print("Welcome to Gourmet Gains!\n")
