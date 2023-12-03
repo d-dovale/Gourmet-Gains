@@ -215,9 +215,12 @@ def knn_algorithm(graph, selected_item, n):
     nearest_neighbors = sorted(distances, key=lambda x: x[1])[:n]
 
     print(f"\n{n} Closest Food Items to '{selected_item}' based on the Macronutrient profile using KNN: \n")
+    count = 1
     for i, (item, distance) in enumerate(nearest_neighbors, 1):
         print(f'{i}. {item}')
+        count += 1  
 
+    print(f"\n{count - 1} items found.")
     print(f"\nKNN completed in {time.time() - start_time} seconds!")
     print("\n-------------------------------------------------------------\n")
 
