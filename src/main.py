@@ -38,9 +38,17 @@ def macronutrient_based_search():
     print("\nMacronutrient Based Search\n")
     print("Enter 'high', 'low', or 'any' for each macronutrient.")
 
-    protein_input = input("Protein (high/low/any): ").lower()
-    carbs_input = input("Carbohydrates (high/low/any): ").lower()
-    fats_input = input("Fats (high/low/any): ").lower()
+    def get_valid_input(macro_name):
+        while True:
+            user_input = input(f"{macro_name} (high/low/any): ").lower()
+            if user_input in ['high', 'low', 'any']:
+                return user_input
+            else:
+                print("Please enter a valid option (high, low, any)")
+
+    protein_input = get_valid_input("Protein")
+    carbs_input = get_valid_input("Carbohydrates")
+    fats_input = get_valid_input("Fats")
 
     # Define thresholds for high and low
     high_protein_threshold = 20  
@@ -52,6 +60,9 @@ def macronutrient_based_search():
 
     matching_items = []
     for item in report:
+        if len(matching_items) >= 25:
+            break  # Limit to a maximum of 25 items
+
         protein = item['Data']['Protein']
         carbs = item['Data']['Carbohydrate']
         fats = item['Data']['Fat']['Total Lipid']
@@ -67,11 +78,12 @@ def macronutrient_based_search():
         matching_items.append(item['Description'])
 
     if matching_items:
-        print("\nFood items matching your criteria:")
+        print("\nFood items matching your criteria (up to 25 items):")
         for i, item in enumerate(matching_items, 1):
             print(f"{i}. {item}")
     else:
         print("No items found matching your criteria.\n")
+
 
 def food_item_search():
     global selected_item
