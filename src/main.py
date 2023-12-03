@@ -198,6 +198,7 @@ def dijkstra(graph, start, n):
 
     print("-------------------------------------------------------------")
 
+
 def a_star_search(graph, start, n):
     start_time = time.time()
     priority_queue = [(0, start, 0)]  # (f_score, node, g_score)
@@ -232,4 +233,5 @@ def a_star_search(graph, start, n):
 
 if __name__ == '__main__':
     main_menu()
+   
 
