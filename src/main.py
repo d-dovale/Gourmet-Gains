@@ -2,7 +2,6 @@ import food
 import math
 import time
 from heapq import heappush, heappop
-import networkx as nx
 
 report = food.get_report()
 selected_item = None
@@ -224,4 +223,5 @@ def knn_algorithm(graph, selected_item, n):
 
 if __name__ == '__main__':
     main_menu()
+   
 
