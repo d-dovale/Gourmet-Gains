@@ -52,6 +52,9 @@ def macronutrient_based_search():
 
     matching_items = []
     for item in report:
+        if len(matching_items) >= 25:
+            break  # Limit to a maximum of 25 items
+
         protein = item['Data']['Protein']
         carbs = item['Data']['Carbohydrate']
         fats = item['Data']['Fat']['Total Lipid']
@@ -67,7 +70,7 @@ def macronutrient_based_search():
         matching_items.append(item['Description'])
 
     if matching_items:
-        print("\nFood items matching your criteria:")
+        print("\nFood items matching your criteria (up to 25 items):")
         for i, item in enumerate(matching_items, 1):
             print(f"{i}. {item}")
     else:
