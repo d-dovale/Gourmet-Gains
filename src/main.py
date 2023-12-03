@@ -29,7 +29,7 @@ def main_menu():
             food_item_search()
         elif main_choice == 3:
             print("\nThank you for using Gourmet Gains!\n")
-            break
+            exit()
         else:
             print("Invalid option. Please try again.\n")
 
@@ -90,18 +90,40 @@ def food_item_search():
             print("Invalid Input. Please enter a number.\n")
             continue
 
-        if choice == 1:
-            recommend_food_items_dijkstra(graph, selected_item)
-        elif choice == 2:
-            recommend_food_items_floyd_warshall(graph, selected_item)
-        # Implement other options (3 to 5) as needed.
-        elif choice == 3:
-            selected_item = select_food_item()
-        elif choice == 4:
-            print("\nExiting the Food Item Menu.\n")
-            break
+        if(choice == 1):
+            if selected_item:
+                while True:
+                    try:
+                        num = int(input("Enter the amount of recommended food items: "))
+                        break
+                    except ValueError:
+                        print("Invalid Input. Please enter a number.\n")
+                        continue
+                dijkstra_algorithm(graph, selected_item['Description'], num)
+            else:
+                print("No food item selected. Please select an item first.")
+
+        elif(choice == 2):
+            if selected_item:
+                try:
+                    num = int(input("Enter the amount of recommended food items: "))
+                except ValueError:
+                    print("Invalid Input. Please enter a number.\n")
+                    continue
+                knn_algorithm(graph, selected_item['Description'], num)
+            else:
+                print("No food item selected. Please select an item first.")
+
+        elif(choice == 3):
+            select_food_item()
+
+        elif(choice == 4):
+            print("\nThank you for using Gourmet Gains!\n")
+            exit()
+
         else:
-            print("Invalid option. Please try again.")
+            print("Invalid option. Please try again.\n")
+            
 
 def select_food_item():
     food_item = input("Input a food item: ")
