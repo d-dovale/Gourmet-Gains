@@ -9,9 +9,10 @@ selected_item = None
 def main_menu():
     print("WELCOME TO GOURMET GAINS!\n")
 
-    print("- You can either enter a food item you're interested in or search based on specific macronutrients.")
-    print("- Choose various options to find similar food items or explore their macronutrient content.")
-    print("- Feel free to select a different food item at any time to start a new search.\n")
+    print("- Discover food items based on your nutritional preferences.")
+    print("- Explore our extensive database to find food items that match specific macronutrient profiles, such as high protein or low carbs.")
+    print("- Get personalized recommendations for food items similar to your favorites based on their nutritional content.")
+    print("- Whether you're looking to balance your diet or find new food options, Gourmet Gains is here to guide you!\n")
     
     while True:
         print("\nMain Menu:\n")
