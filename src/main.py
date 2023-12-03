@@ -22,7 +22,7 @@ def main_menu():
 
         graph = build_graph_for_item(selected_item, report)
         print("\nMain Menu:\n")
-        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Marshall’s Algorithm\n3. Search Carbohydrates\n4. Search Protein\n5. Search Fats\n6. Select a Different Starting Food Item\n7. Exit\n")
+        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Warshall's Algorithm\n3. Search Carbohydrates\n4. Search Protein\n5. Search Fats\n6. Select a Different Starting Food Item\n7. Exit\n")
 
         try:
             choice = int(input("Pick an Option: "))
@@ -39,12 +39,20 @@ def main_menu():
                     except ValueError:
                         print("Invalid Input. Please enter a number.\n")
                         continue
-                dijkstra(graph, selected_item['Description'], num)
+                dijkstra_algorithm(graph, selected_item['Description'], num)
             else:
                 print("No food item selected. Please select an item first.")
 
         elif(choice == 2):
-            pass
+            if selected_item:
+                try:
+                    num = int(input("Enter the amount of recommended food items: "))
+                except ValueError:
+                    print("Invalid Input. Please enter a number.\n")
+                    continue
+                knn_algorithm(graph, selected_item['Description'], num)
+            else:
+                print("No food item selected. Please select an item first.")
 
         elif(choice == 3):
             pass
@@ -149,13 +157,13 @@ def search_food(food_item):
             print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
             print(f"  - Proteins: {selected_item['Data']['Protein']} g")
             print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
-            print("\n-------------------------------------------------------------")
+            print("\n-------------------------------------------------------------\n")
             
             return selected_item
         else:
             print("INVALID SELECTION.")
 
-def dijkstra(graph, start, n):
+def dijkstra_algorithm(graph, start, n):
     start_time = time.time()
     shortest_distances = {node: float('infinity') for node in graph}
     shortest_distances[start] = 0
@@ -183,12 +191,37 @@ def dijkstra(graph, start, n):
         
         print(f'{count}. {item[0]}')
         count +=1
-    if count != n:
-        print(f"\nOnly {count - 1} items found.")
+    
+    print(f"\n{count - 1} items found.")
     print(f"\nDijkstra's Algorithm completed in {time.time() - start_time} seconds!")
 
     print("-------------------------------------------------------------")
 
+def knn_algorithm(graph, selected_item, n):
+    start_time = time.time()
+
+    # Retrieve the data for the selected item
+    selected_item_data = next(item for item in report if item['Description'] == selected_item)
+
+    # Calculate distances from the selected item to all others
+    distances = []
+    for item in graph:
+        if item != selected_item:
+            item_data = next(food_item for food_item in report if food_item['Description'] == item)
+            distance = calculate_difference(selected_item_data, item_data)
+            distances.append((item, distance))
+
+    # Sort the items based on distance and pick the top n items
+    nearest_neighbors = sorted(distances, key=lambda x: x[1])[:n]
+
+    print(f"\n{n} Closest Food Items to '{selected_item}' based on the Macronutrient profile using KNN: \n")
+    for i, (item, distance) in enumerate(nearest_neighbors, 1):
+        print(f'{i}. {item}')
+
+    print(f"\nKNN completed in {time.time() - start_time} seconds!")
+    print("\n-------------------------------------------------------------\n")
+
 if __name__ == '__main__':
     main_menu()
+   
 
