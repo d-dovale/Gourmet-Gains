@@ -22,7 +22,7 @@ def main_menu():
 
         graph = build_graph_for_item(selected_item, report)
         print("\nMain Menu:\n")
-        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using KNN's Algorithm\n 3. Select a Different Starting Food Item\n 4. Exit \n")
+        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using KNN's Algorithm\n3. Select a Different Starting Food Item\n4. Exit \n")
 
         try:
             choice = int(input("Pick an Option: "))
