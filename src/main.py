@@ -44,7 +44,7 @@ def macronutrient_based_search():
             if user_input in ['high', 'low', 'any']:
                 return user_input
             else:
-                print("Please enter a valid option (high, low, any)")
+                print("\nPlease enter a valid option (high, low, any)")
 
     protein_input = get_valid_input("Protein")
     carbs_input = get_valid_input("Carbohydrates")
