@@ -7,22 +7,82 @@ report = food.get_report()
 selected_item = None
 
 def main_menu():
-    global selected_item
     print("WELCOME TO GOURMET GAINS!\n")
 
-    print("- Start by entering a food item you're interested in.")
-    print("- You can then choose various options to find similar food items or explore their macronutrient content.")
+    print("- You can either enter a food item you're interested in or search based on specific macronutrients.")
+    print("- Choose various options to find similar food items or explore their macronutrient content.")
     print("- Feel free to select a different food item at any time to start a new search.\n")
+    
+    while True:
+        print("\nMain Menu:\n")
+        print("1. Search Based on Specific Macronutrients\n2. Enter a Food Item\n3. Exit\n")
+        try:
+            main_choice = int(input("Pick an Option: "))
+            print("\n-------------------------------------------------------------")
+        except ValueError:
+            print("Invalid Input. Please enter a number.\n")
+            continue
 
-    select_food_item()
+        if main_choice == 1:
+            macronutrient_based_search()
+        elif main_choice == 2:
+            food_item_search()
+        elif main_choice == 3:
+            print("\nThank you for using Gourmet Gains!\n")
+            break
+        else:
+            print("Invalid option. Please try again.\n")
+
+def macronutrient_based_search():
+    print("\nMacronutrient Based Search\n")
+    print("Enter 'high', 'low', or 'any' for each macronutrient.")
+
+    protein_input = input("Protein (high/low/any): ").lower()
+    carbs_input = input("Carbohydrates (high/low/any): ").lower()
+    fats_input = input("Fats (high/low/any): ").lower()
+
+    # Define thresholds for high and low
+    high_protein_threshold = 20  
+    low_protein_threshold = 5    
+    high_carbs_threshold = 50    
+    low_carbs_threshold = 15     
+    high_fats_threshold = 20    
+    low_fats_threshold = 5
+
+    matching_items = []
+    for item in report:
+        protein = item['Data']['Protein']
+        carbs = item['Data']['Carbohydrate']
+        fats = item['Data']['Fat']['Total Lipid']
+
+        if (protein_input == 'high' and protein < high_protein_threshold) or \
+           (protein_input == 'low' and protein > low_protein_threshold) or \
+           (carbs_input == 'high' and carbs < high_carbs_threshold) or \
+           (carbs_input == 'low' and carbs > low_carbs_threshold) or \
+           (fats_input == 'high' and fats < high_fats_threshold) or \
+           (fats_input == 'low' and fats > low_fats_threshold):
+            continue
+
+        matching_items.append(item['Description'])
+
+    if matching_items:
+        print("\nFood items matching your criteria:")
+        for i, item in enumerate(matching_items, 1):
+            print(f"{i}. {item}")
+    else:
+        print("No items found matching your criteria.\n")
+
+def food_item_search():
+    global selected_item
+    selected_item = select_food_item()
 
     while True:
         if not selected_item:
-            select_food_item()
+            selected_item = select_food_item()
 
         graph = build_graph_for_item(selected_item, report)
-        print("\nMain Menu:\n")
-        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Warshall's Algorithm\n3. Search Carbohydrates\n4. Search Protein\n5. Search Fats\n6. Select a Different Starting Food Item\n7. Exit\n")
+        print("\nFood Item Menu:\n")
+        print("1. Recommend food items using Dijkstra's algorithm\n2. Recommend food items using Floyd Warshall's Algorithm\n3. Select a Different Starting Food Item\n4. Exit\n")
 
         try:
             choice = int(input("Pick an Option: "))
@@ -30,53 +90,22 @@ def main_menu():
             print("Invalid Input. Please enter a number.\n")
             continue
 
-        if(choice == 1):
-            if selected_item:
-                while True:
-                    try:
-                        num = int(input("Enter the amount of recommended food items: "))
-                        break
-                    except ValueError:
-                        print("Invalid Input. Please enter a number.\n")
-                        continue
-                dijkstra_algorithm(graph, selected_item['Description'], num)
-            else:
-                print("No food item selected. Please select an item first.")
-
-        elif(choice == 2):
-            if selected_item:
-                try:
-                    num = int(input("Enter the amount of recommended food items: "))
-                except ValueError:
-                    print("Invalid Input. Please enter a number.\n")
-                    continue
-                knn_algorithm(graph, selected_item['Description'], num)
-            else:
-                print("No food item selected. Please select an item first.")
-
-        elif(choice == 3):
-            pass
-
-        elif(choice == 4):
-            pass
-
-        elif(choice == 5):
-            pass
-
-        elif(choice == 6):
-            select_food_item()
-        
-        elif(choice == 7):
-            print("\nThank you for using Gourmet Gains!\n")  
+        if choice == 1:
+            recommend_food_items_dijkstra(graph, selected_item)
+        elif choice == 2:
+            recommend_food_items_floyd_warshall(graph, selected_item)
+        # Implement other options (3 to 5) as needed.
+        elif choice == 3:
+            selected_item = select_food_item()
+        elif choice == 4:
+            print("\nExiting the Food Item Menu.\n")
             break
         else:
             print("Invalid option. Please try again.")
-            
 
 def select_food_item():
-    global selected_item
     food_item = input("Input a food item: ")
-    selected_item = search_food(food_item)
+    return search_food(food_item)
 
 
 def calculate_difference(item1, item2):
