@@ -100,6 +100,11 @@ def macronutrient_based_search():
 
 
 def food_item_search():
+    """
+    Allows users to search for a specific food item by name.
+    Users can select a food item and then choose further actions like getting recommendations.
+    """
+
     global selected_item
     selected_item = select_food_item()
 
