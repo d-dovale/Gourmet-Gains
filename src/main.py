@@ -64,11 +64,11 @@ def macronutrient_based_search():
     fats_input = get_valid_input("  - Fats")
 
     # Define thresholds for high and low
-    high_protein_threshold = 20  
-    low_protein_threshold = 5    
-    high_carbs_threshold = 50    
-    low_carbs_threshold = 15     
-    high_fats_threshold = 20    
+    high_protein_threshold = 13 
+    low_protein_threshold = 4    
+    high_carbs_threshold = 31    
+    low_carbs_threshold = 10     
+    high_fats_threshold = 13    
     low_fats_threshold = 5
 
     matching_items = []
@@ -310,5 +310,52 @@ def knn_algorithm(graph, selected_item, n):
     print(f"\nKNN completed in {time.time() - start_time} seconds!")
     print("\n--------------------------------------------------------------------------------------------------------------------------------\n")
 
+# Calculates the average macronutrient values for all food items in the report
+def calculate_averages(food_report): 
+
+    total_carbs = 0
+    total_fat = 0
+    total_protein = 0
+    total_items = len(food_report)
+
+    for item in food_report:
+        total_carbs += item['Data']['Carbohydrate']
+        total_fat += item['Data']['Fat']['Total Lipid']
+        total_protein += item['Data']['Protein']
+
+    average_carbs = total_carbs / total_items
+    average_fat = total_fat / total_items
+    average_protein = total_protein / total_items
+
+    return average_carbs, average_fat, average_protein
+
+def calculate_macro_thresholds():
+    avg_carbs, avg_fat, avg_protein = calculate_averages(report)
+
+    # Multipliers for high and low values
+    high_multiplier = 1.5
+    low_multiplier = 0.5
+
+    # Calculate threshold values
+    high_carbs_threshold = avg_carbs * high_multiplier
+    low_carbs_threshold = avg_carbs * low_multiplier
+
+    high_fat_threshold = avg_fat * high_multiplier
+    low_fat_threshold = avg_fat * low_multiplier
+
+    high_protein_threshold = avg_protein * high_multiplier
+    low_protein_threshold = avg_protein * low_multiplier
+
+    # Print the threshold values
+    print("Thresholds: \n")
+    print("  - High Carbs:", high_carbs_threshold, "g")
+    print("  - Low Carbs:", low_carbs_threshold, "g")
+    print("  - High Fat:", high_fat_threshold, "g")
+    print("  - Low Fat:", low_fat_threshold, "g")
+    print("  - High Protein:", high_protein_threshold, "g")
+    print("  - Low Protein:", low_protein_threshold, "g\n")
+
 if __name__ == '__main__':
     main_menu()
+    
+
