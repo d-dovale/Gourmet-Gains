@@ -7,8 +7,19 @@ report = food.get_report()
 selected_item = None
 
 def main_menu():
-    print("WELCOME TO GOURMET GAINS!\n")
+    """
+    Main menu function displaying the initial options to the user.
+    This function serves as the entry point for interacting with the Gourmet Gains application.
 
+    The function offers a loop-based menu system with options to:
+    - Search for food items based on specific macronutrients.
+    - Enter and analyze a specific food item.
+    - Exit the application.
+
+    User input is captured and validated, and the corresponding function is called based on the user's choice.
+    """
+
+    print("WELCOME TO GOURMET GAINS!\n")
     print("- Discover food items based on your nutritional preferences.")
     print("- Explore our extensive database to find food items that match specific macronutrient profiles, such as high protein or low carbs.")
     print("- Get personalized recommendations for food items similar to your favorites based on their nutritional content.")
@@ -63,7 +74,7 @@ def macronutrient_based_search():
     matching_items = []
     for item in report:
         if len(matching_items) >= 25:
-            break  # Limit to a maximum of 25 items
+            break
 
         protein = item['Data']['Protein']
         carbs = item['Data']['Carbohydrate']
@@ -148,36 +159,26 @@ def select_food_item():
 
 
 def calculate_difference(item1, item2):
-    # Example: Euclidean distance based on macronutrients
+    """
+    Calculates the difference between two food items based on their macronutrient content.
+    Uses Euclidean distance calculation for the difference.
+    Returns a numerical value representing the difference.
+    """
+
     carb_diff = abs(item1['Data']['Carbohydrate'] - item2['Data']['Carbohydrate'])
     protein_diff = abs(item1['Data']['Protein'] - item2['Data']['Protein'])
     fat_diff = abs(item1['Data']['Fat']['Total Lipid'] - item2['Data']['Fat']['Total Lipid'])
 
     return math.sqrt(carb_diff**2 + protein_diff**2 + fat_diff**2)
 
-# Slower version of graph that takes about 30 seconds to run
-
-def build_graph(threshold = 0.5):
-    start_time = time.time()
-    food_report = food.get_report()
-    graph = {}
-
-    for i in range(len(food_report)):
-        for j in range(i + 1, len(food_report)):
-            item1 = food_report[i]
-            item2 = food_report[j]
-            difference = calculate_difference(item1, item2)
-            if difference < threshold:
-                graph[(item1['Description'], item2['Description'])] = difference
-
-    end_time = time.time()
-    print(f"Graph built in {time.time() - start_time} seconds.")
-    return graph
-
-# Faster version of graph that takes in a specific item and builds a graph for that item
-
 def build_graph_for_item(selected_item, food_report, threshold = 2):
-    graph = {item['Description']: [] for item in food_report}  # Initialize graph with all food items
+    """
+    Builds a graph for a specific food item, connecting it to similar items based on macronutrients.
+    This is a faster version of the graph-building function, focusing only on one item.
+    The connections are based on a threshold for macronutrient differences.
+    """
+
+    graph = {item['Description']: [] for item in food_report}
 
     for item in food_report:
         if item['Description'] != selected_item['Description']:
@@ -232,6 +233,12 @@ def search_food(food_item):
             print("INVALID SELECTION.")
 
 def dijkstra_algorithm(graph, start, n):
+    """
+    Implements Dijkstra's algorithm to find the closest n food items to a given start item.
+    'Closest' is determined based on the macronutrient profile.
+    The function outputs the n closest items and the time taken to compute.
+    """
+
     start_time = time.time()
     shortest_distances = {node: float('infinity') for node in graph}
     shortest_distances[start] = 0
@@ -266,6 +273,12 @@ def dijkstra_algorithm(graph, start, n):
     print("\n--------------------------------------------------------------------------------------------------------------------------------\n")
 
 def knn_algorithm(graph, selected_item, n):
+    """
+    Implements the K-Nearest Neighbors algorithm to recommend n food items similar to the selected item.
+    Similarity is based on the macronutrient profile.
+    The function outputs the n closest items and the time taken to compute.
+    """
+
     start_time = time.time()
 
     # Retrieve the data for the selected item
@@ -294,5 +307,3 @@ def knn_algorithm(graph, selected_item, n):
 
 if __name__ == '__main__':
     main_menu()
-   
-
