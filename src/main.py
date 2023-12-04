@@ -7,7 +7,7 @@ report = food.get_report()
 selected_item = None
 
 def main_menu():
-    print("WELCOME TO GOURMET GAINS!\n")
+    print("\nWELCOME TO GOURMET GAINS!\n")
 
     print("- Discover food items based on your nutritional preferences.")
     print("- Explore our extensive database to find food items that match specific macronutrient profiles, such as high protein or low carbs.")
