@@ -19,7 +19,7 @@ def main_menu():
         print("1. Search based on Specific Macronutrients\n2. Enter a Food Item\n3. Exit\n")
         try:
             main_choice = int(input("Pick an Option: "))
-            print("\n--------------------------------------------------------------------------------------------------------------------------------\n")
+            print("\n-------------------------------------------------------------------------------------------------------------------------------\n")
         except ValueError:
             print("Invalid Input. Please enter a number.\n")
             continue
@@ -82,6 +82,7 @@ def macronutrient_based_search():
         print("\nFood items matching your criteria (up to 25 items): \n")
         for i, item in enumerate(matching_items, 1):
             print(f"{i}. {item}")
+        print("\n-------------------------------------------------------------------------------------------------------------------------------")
     else:
         print("\nNo items found matching your criteria.\n")
 
