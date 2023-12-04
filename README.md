@@ -33,15 +33,15 @@ In Gourmet Gains, we've implemented two core algorithms to enhance the user expe
 <!-- USAGE EXAMPLES -->
 ## Pictures
 
-<img src="pictures/Screenshot_1.png" />
+<img src="screenshots/Screenshot_1.png" />
 
 -------------------------------------------------------
 
-<img src="pictures/Screenshot_2.png" />
+<img src="screenshots/Screenshot_2.png" />
 
 -------------------------------------------------------
 
-<img src="pictures/Screenshot_3.png" />
+<img src="screenshots/Screenshot_3.png" />
 
 <!-- CONTACT -->
 ## Contact
