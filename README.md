@@ -1,4 +1,4 @@
-# Gourmet-Gains
+# Gourmet Gains
 
 ## About The Project
 
