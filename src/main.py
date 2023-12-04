@@ -3,6 +3,7 @@ import math
 import time
 from heapq import heappush, heappop
 
+# Retrieve the food report from the food module
 report = food.get_report()
 selected_item = None
 
@@ -310,7 +311,7 @@ def knn_algorithm(graph, selected_item, n):
     print(f"\nKNN completed in {time.time() - start_time} seconds!")
     print("\n--------------------------------------------------------------------------------------------------------------------------------\n")
 
-# Calculates the average macronutrient values for all food items in the report
+# Calculates the average macronutrient values for all food items in the report, used in calculating the thresholds
 def calculate_averages(food_report): 
 
     total_carbs = 0
@@ -329,6 +330,7 @@ def calculate_averages(food_report):
 
     return average_carbs, average_fat, average_protein
 
+# Calculates the threshold values for high and low macronutrient values, used in the macronutrient based search
 def calculate_macro_thresholds():
     avg_carbs, avg_fat, avg_protein = calculate_averages(report)
 
