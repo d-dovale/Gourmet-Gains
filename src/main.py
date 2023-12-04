@@ -49,15 +49,15 @@ def main_menu():
 
 def macronutrient_based_search():
     print("Macronutrient Based Search\n")
-    print("Enter 'high', 'low', or 'any' for each macronutrient.")
+    print("Enter 'high', 'low', or 'n/a' for each macronutrient.")
 
     def get_valid_input(macro_name):
         while True:
-            user_input = input(f"{macro_name} (high/low/any): ").lower()
-            if user_input in ['high', 'low', 'any']:
+            user_input = input(f"{macro_name} (high, low, n/a): ").lower()
+            if user_input in ['high', 'low', 'n/a']:
                 return user_input
             else:
-                print("\nPlease enter a valid option (high, low, any)")
+                print("\nPlease enter a valid option (high, low, n/a)")
 
     protein_input = get_valid_input("  - Protein")
     carbs_input = get_valid_input("  - Carbohydrates")
@@ -357,5 +357,5 @@ def calculate_macro_thresholds():
 
 if __name__ == '__main__':
     main_menu()
-    
+   
 
