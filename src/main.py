@@ -13,13 +13,14 @@ def main_menu():
     print("- Explore our extensive database to find food items that match specific macronutrient profiles, such as high protein or low carbs.")
     print("- Get personalized recommendations for food items similar to your favorites based on their nutritional content.")
     print("- Whether you're looking to balance your diet or find new food options, Gourmet Gains is here to guide you!\n")
+    print("-------------------------------------------------------------------------------------------------------------------------------")
     
     while True:
         print("\nMain Menu:\n")
         print("1. Search based on Specific Macronutrients\n2. Enter a Food Item\n3. Exit\n")
         try:
             main_choice = int(input("Pick an Option: "))
-            print("\n--------------------------------------------------------------------------------------------------------------------------------\n")
+            print("\n-------------------------------------------------------------------------------------------------------------------------------\n")
         except ValueError:
             print("Invalid Input. Please enter a number.\n")
             continue
@@ -36,7 +37,7 @@ def main_menu():
             print("Invalid menu option. Please try again.\n")
 
 def macronutrient_based_search():
-    print("\nMacronutrient Based Search\n")
+    print("Macronutrient Based Search\n")
     print("Enter 'high', 'low', or 'any' for each macronutrient.")
 
     def get_valid_input(macro_name):
@@ -82,6 +83,7 @@ def macronutrient_based_search():
         print("\nFood items matching your criteria (up to 25 items): \n")
         for i, item in enumerate(matching_items, 1):
             print(f"{i}. {item}")
+        print("\n-------------------------------------------------------------------------------------------------------------------------------")
     else:
         print("\nNo items found matching your criteria.\n")
 
