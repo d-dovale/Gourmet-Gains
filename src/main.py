@@ -16,10 +16,10 @@ def main_menu():
     
     while True:
         print("\nMain Menu:\n")
-        print("1. Search Based on Specific Macronutrients\n2. Enter a Food Item\n3. Exit\n")
+        print("1. Search based on Specific Macronutrients\n2. Enter a Food Item\n3. Exit\n")
         try:
             main_choice = int(input("Pick an Option: "))
-            print("\n-------------------------------------------------------------")
+            print("\n--------------------------------------------------------------------------------------------------------------------------------\n")
         except ValueError:
             print("Invalid Input. Please enter a number.\n")
             continue
@@ -32,7 +32,7 @@ def main_menu():
             print("\nThank you for using Gourmet Gains!\n")
             exit()
         else:
-            print("Invalid option. Please try again.\n")
+            print("Invalid menu option. Please try again.\n")
 
 def macronutrient_based_search():
     print("\nMacronutrient Based Search\n")
@@ -46,9 +46,9 @@ def macronutrient_based_search():
             else:
                 print("\nPlease enter a valid option (high, low, any)")
 
-    protein_input = get_valid_input("Protein")
-    carbs_input = get_valid_input("Carbohydrates")
-    fats_input = get_valid_input("Fats")
+    protein_input = get_valid_input("  - Protein")
+    carbs_input = get_valid_input("  - Carbohydrates")
+    fats_input = get_valid_input("  - Fats")
 
     # Define thresholds for high and low
     high_protein_threshold = 20  
@@ -78,11 +78,11 @@ def macronutrient_based_search():
         matching_items.append(item['Description'])
 
     if matching_items:
-        print("\nFood items matching your criteria (up to 25 items):")
+        print("\nFood items matching your criteria (up to 25 items): \n")
         for i, item in enumerate(matching_items, 1):
             print(f"{i}. {item}")
     else:
-        print("No items found matching your criteria.\n")
+        print("\nNo items found matching your criteria.\n")
 
 
 def food_item_search():
@@ -204,7 +204,7 @@ def search_food(food_item):
         search_food(input("Input a food item: "))
         return
 
-    print("\nSelect the specific type of", food_item)
+    print(f"\nSelect the specific type of {food_item}:")
 
     for i, item in enumerate(search_results):
         print(f"{i + 1}. {item['Description']}")
@@ -221,7 +221,7 @@ def search_food(food_item):
             print(f"  - Carbohydrates: {selected_item['Data']['Carbohydrate']} g")
             print(f"  - Proteins: {selected_item['Data']['Protein']} g")
             print(f"  - Fats: {selected_item['Data']['Fat']['Total Lipid']} g")
-            print("\n-------------------------------------------------------------\n")
+            print("\n--------------------------------------------------------------------------------------------------------------------------------\n")
             
             return selected_item
         else:
@@ -259,7 +259,7 @@ def dijkstra_algorithm(graph, start, n):
     print(f"\n{count - 1} items found.")
     print(f"\nDijkstra's Algorithm completed in {time.time() - start_time} seconds!")
 
-    print("-------------------------------------------------------------")
+    print("\n--------------------------------------------------------------------------------------------------------------------------------\n")
 
 def knn_algorithm(graph, selected_item, n):
     start_time = time.time()
@@ -278,7 +278,7 @@ def knn_algorithm(graph, selected_item, n):
     # Sort the items based on distance and pick the top n items
     nearest_neighbors = sorted(distances, key=lambda x: x[1])[:n]
 
-    print(f"\n{n} Closest Food Items to '{selected_item}' based on the Macronutrient profile using KNN: \n")
+    print(f"\n{n} Closest Food Items to '{selected_item}' based on the Macronutrient profile: \n")
     count = 1
     for i, (item, distance) in enumerate(nearest_neighbors, 1):
         print(f'{i}. {item}')
@@ -286,7 +286,7 @@ def knn_algorithm(graph, selected_item, n):
 
     print(f"\n{count - 1} items found.")
     print(f"\nKNN completed in {time.time() - start_time} seconds!")
-    print("\n-------------------------------------------------------------\n")
+    print("\n--------------------------------------------------------------------------------------------------------------------------------\n")
 
 if __name__ == '__main__':
     main_menu()
