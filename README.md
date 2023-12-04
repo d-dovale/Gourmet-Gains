@@ -10,13 +10,10 @@ Gourmet Gains is a Python-based application designed to help fitness enthusiasts
 * **Food Item Analysis**: Enter and analyze specific food items for detailed nutrient breakdowns.
 * **Personalized Recommendations**: Utilize advanced algorithms to get food recommendations similar to your favorite items.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ### Built With
 
 * ![Python]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Algorithms Implemented
@@ -54,8 +51,6 @@ Daniel Dovale - ddovale2004@gmail.com
 Daniel Souza - daniel.souza@ufl.edu
 
 Anteneh Zewdie - Antenehzewdie@ufl.edu
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 [Python]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
