@@ -23,7 +23,8 @@ def main_menu():
         except ValueError:
             print("Invalid Input. Please enter a number.\n")
             continue
-
+        
+        # MAIN MENU
         if main_choice == 1:
             macronutrient_based_search()
         elif main_choice == 2:
@@ -103,6 +104,7 @@ def food_item_search():
             print("Invalid Input. Please enter a number.\n")
             continue
 
+        # FOOD ITEM MENU   
         if(choice == 1):
             if selected_item:
                 while True:
@@ -128,7 +130,7 @@ def food_item_search():
                 print("No food item selected. Please select an item first.")
 
         elif(choice == 3):
-            select_food_item()
+            selected_item = select_food_item()
 
         elif(choice == 4):
             print("\nThank you for using Gourmet Gains!\n")
