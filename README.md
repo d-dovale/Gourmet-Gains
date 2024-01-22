@@ -48,7 +48,7 @@ In Gourmet Gains, we've implemented two core algorithms to enhance the user expe
 
 Daniel Dovale - ddovale2004@gmail.com
 
-Daniel Souza - daniel.souza@ufl.edu
+Daniel Souza - daniel.dsouza@ufl.edu
 
 Anteneh Zewdie - Antenehzewdie@ufl.edu
 
